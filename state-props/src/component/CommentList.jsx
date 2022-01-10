@@ -4,7 +4,8 @@ import {ListGroup} from 'react-bootstrap'
 
 class CommentList extends Component{
     state={
-        comments:[]
+       comments:[],
+        isLoading:true,
     }
     componentDidMount =() =>{
         this.fetchComments() 
@@ -20,13 +21,16 @@ class CommentList extends Component{
              let response = await fetch("https://striveschool-api.herokuapp.com/api/comments/" + this.props.asin, {
              method:"GET",   
              headers: { 
-                 "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWIwYWU1OTRjZmY1ZjAwMTU5MGJkYWYiLCJpYXQiOjE2Mzk2NjI1MjgsImV4cCI6MTY0MDg3MjEyOH0.M_W7mM03N1yeADR5Q0nbGPMaXiMh73U1VxH4uhVI160"
+                 "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWIwYWU1OTRjZmY1ZjAwMTU5MGJkYWYiLCJpYXQiOjE2NDE4Mjc1NzYsImV4cCI6MTY0MzAzNzE3Nn0.jwiNMWRpg2y2Ole2--KiD0VnvoMTRx8BcxRRPXSl84A"
              }
                  })
 
             let data = await response.json()
-            this.setState({comments:data})  
-            this.setState({isLoading:false})  
+            if(data){
+
+                this.setState({comments:data})  
+                this.setState({isLoading:false})  
+            }
             
          } catch (error) {
              console.log(error)
@@ -36,7 +40,7 @@ class CommentList extends Component{
     render(){
     return(
         <ListGroup as="ul">
-          
+            
             {this.state.comments && this.state.comments.map(comment => <CommentListItem comment={comment}/>)}
         </ListGroup>
     )
