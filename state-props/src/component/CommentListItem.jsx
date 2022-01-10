@@ -7,7 +7,7 @@ class CommentList extends Component{
         
              return(
             <ListGroup.Item as="li" active>
-                        {this.props.comment.rate} - {this.props.comment.comment} {this.props.comment.elementId} {this.props.comment.commentId}<BsTrash className='text-danger' onClick={(e) => this.handleDelete(this.props.comment._id)}/>
+                       Rating  {this.props.comment.rate} * - {this.props.comment.comment} {this.props.comment.elementId} {this.props.comment.commentId}<BsTrash className='text-danger' onClick={(e) => this.handleDelete(this.props.comment._id)}/>
             <hr/>
             </ListGroup.Item>
                     

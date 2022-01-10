@@ -33,12 +33,22 @@ class App extends Component {
       {/* <MyBadges Mytext="Buy The Latest Book"  color="danger" /> */}
      <Container fluid>
        <Row>
-         <Col xs={12} sm={8} md={8} lg={this.state.showComment?9:12}>
+         <Col xs={12} sm={8} md={8} lg={this.state.showComment?95:12}>
             <BookList books={scifiBooks} changeBookAsin = {this.changeBookAsin} />
             {/* <SingleBook className="singlBook" changeBookAsin = {this.changeBookAsin} book={scifiBooks[0]}/> */}
          </Col>
 
          <Col className="pt-5 text-center bg-dark" xs={12} sm={4} md={4} lg={3} style={{display:this.state.showComment? 'block':'none',position:'fixed', right:'0', height:'100vh'}}>
+               
+                {
+                  scifiBooks.filter(book=>book.asin.includes(this.state.asin)).map((book)=>(
+                    <div key={book.asin} style={{maxWidth:'100px',width:'100%',display:'flex', fontSize:'18px',color:'white'}}>
+                    <img className="w-100"src={book.img}/>
+                  
+                      <span className="w-100" style={{width:'200px'}}>{book.title} </span>
+                    
+                </div>))
+            }
             <AddComment asin = {this.state.asin}/>
             <CommentList asin={this.state.asin}/>
          </Col>

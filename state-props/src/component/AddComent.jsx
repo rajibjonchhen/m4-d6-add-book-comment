@@ -22,8 +22,7 @@ class  AddComment extends Component {
             elementId : this.props.asin
            }
         })
-        console.log('state',this.state.comments)
-        console.log('props',this.props.asin)
+        
         
      }
 
@@ -42,7 +41,11 @@ class  AddComment extends Component {
     })
     let data = await response.json()
     if(response.ok){
-       console.log("comment added",data)
+       this.setState({comments:{
+            comment : "",
+            rate : "",
+            elementId : ""
+          }})
     }
     } catch (error) {
         console.log(error)
