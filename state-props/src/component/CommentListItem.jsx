@@ -4,10 +4,11 @@ import { BsTrash } from 'react-icons/bs'
 class CommentList extends Component{
 
     render(){
+        
              return(
             <ListGroup.Item as="li" active>
                         {this.props.comment.rate} - {this.props.comment.comment} <BsTrash onClick={this.handleDelete}/>
-                    </ListGroup.Item>
+            </ListGroup.Item>
                     
                         )
         

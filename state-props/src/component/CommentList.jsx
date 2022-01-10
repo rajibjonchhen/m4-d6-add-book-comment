@@ -11,7 +11,6 @@ class CommentList extends Component{
 
      componentDidUpdate = async(prevProps,prevState) => {
          if(prevProps.asin !== this.props.asin){
-             this.fetchComments()
              try {
                  let response = await fetch("https://striveschool-api.herokuapp.com/api/comments/" + this.props.asin, {
                      method:"GET",   

@@ -10,6 +10,7 @@ class BookList extends Component{
        }
     
 render(){
+    
     return(
         <Container>
            <Form className="d-flex m-3">
@@ -29,8 +30,8 @@ render(){
             <Row>
             {
                   this.props.books.filter(book=>book.title.toLowerCase().includes(this.state.search.toLowerCase())).map((book)=>(
-                    <Col sm={12} md={6} lg={4} key={book.id} >
-                    <SingleBook changeBookAsin = {this.props.changeBookAsin} book={book}/>
+                    <Col sm={12} md={6} lg={4} key={book.asin} >
+                    <SingleBook  changeBookAsin = {this.props.changeBookAsin} book={book}/>
                 </Col>))
             }
            

@@ -43,7 +43,7 @@ class  AddComment extends Component {
     render() { 
         return ( 
 
-            <Form onSubmit={this.handleSubmit}>
+            <Form onSubmit={this.handleSubmit} style={{width:'100%', backgroundColor:'grey'}}>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                     <Form.Label>Example textarea</Form.Label>
                     <Form.Control as="textarea" rows={3} value={this.state.comments.comment} 
@@ -57,9 +57,6 @@ class  AddComment extends Component {
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                     <Button variant="primary" className="m-2"> Submit</Button>
                 </Form.Group>
-                
-               
-                 
             </Form>
          );
     }
