@@ -1,6 +1,6 @@
 import React from 'react';
 import {Component} from "react"
-import { Form,Col,Button} from 'react-bootstrap';
+import { Form,Col,Button, InputGroup} from 'react-bootstrap';
 
 
 class  AddComment extends Component {
@@ -8,31 +8,42 @@ class  AddComment extends Component {
         comments:{
             comment : "",
             rate : "",
-            elementId : this.props.id
-          }
+            elementId : this.props.asin
+          },
+
+          array:['1','2','3','4','5']
      }
 
      handleInput = (property,value) => {
         this.setState({ 
            comments:{
             ...this.state.comments,
-            [property]: value
+            [property]: value,
+            elementId : this.props.asin
            }
         })
+        console.log('state',this.state.comments)
+        console.log('props',this.props.asin)
+        
      }
 
      handleSubmit = async(event) => {
+        console.log('comment is ',this.state.comments)
+        
         event.preventDefault()
     try {
-        let response = await fetch("https://striveschool-api.herokuapp.com/api/comments/" + this.props.asin, {
+        let response = await fetch("https://striveschool-api.herokuapp.com/api/comments" ,{
         method:"POST",   
         body: JSON.stringify(this.state.comments), 
         headers: {
             "Content-Type" : "application/JSON",  
-            "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWIwYWU1OTRjZmY1ZjAwMTU5MGJkYWYiLCJpYXQiOjE2Mzk2NjI1MjgsImV4cCI6MTY0MDg3MjEyOH0.M_W7mM03N1yeADR5Q0nbGPMaXiMh73U1VxH4uhVI160"
+            "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWIwYWU1OTRjZmY1ZjAwMTU5MGJkYWYiLCJpYXQiOjE2NDE4Mjc1NzYsImV4cCI6MTY0MzAzNzE3Nn0.jwiNMWRpg2y2Ole2--KiD0VnvoMTRx8BcxRRPXSl84A"
         }
     })
     let data = await response.json()
+    if(response.ok){
+       console.log("comment added",data)
+    }
     } catch (error) {
         console.log(error)
     }
@@ -41,21 +52,31 @@ class  AddComment extends Component {
 
 
     render() { 
+        console.log(this.state.elementId)
         return ( 
-
-            <Form onSubmit={this.handleSubmit} style={{width:'100%', backgroundColor:'grey'}}>
+            <Form className="w-100 p-2 my-2 rounded-lg text-white" onSubmit={this.handleSubmit} style={{ backgroundColor:'grey'}}>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                    <Form.Label>Example textarea</Form.Label>
+                    <Form.Label>Leave a comment</Form.Label>
                     <Form.Control as="textarea" rows={3} value={this.state.comments.comment} 
-                    onChange={e =>this.handleInput("comment",e.target.value)}/>
+                    onChange={e =>this.handleInput("comment",e.target.value)} required/>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput2">
                     <Form.Label>Rate the book</Form.Label>
-                    <Form.Control type="number" placeholder="Rating" min="1" max="5" value={this.state.comments.rate} 
-                    onChange={e =>this.handleInput("rate",e.target.value)}/>
+                
+                    {
+                    this.state.array.map(i => (<span className="m-1">
+                        <label for='rate'>{i} </label>
+                        <input type='radio' name='rate' value={i} id='rate'  onChange={e =>this.handleInput("rate",e.target.value)} required></input>
+                    </span>
+                     ) )
+                }
                 </Form.Group>
+                {/* <input type='radio' name='rate' value='2'></input>
+                <input type='radio' name='rate' value='3'></input>
+                <input type='radio' name='rate' value='4'></input>
+                <input type='radio' name='rate' value='5'></input> */}
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                    <Button variant="primary" className="m-2"> Submit</Button>
+                    <Button type='submit' variant="primary" className="m-2"> Submit</Button>
                 </Form.Group>
             </Form>
          );

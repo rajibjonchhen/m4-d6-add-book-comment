@@ -35,7 +35,7 @@ class CommentList extends Component{
     render(){
     return(
         <ListGroup as="ul">   
-            {this.state.comments && this.state.comments.map(comment => <CommentListItem comment={comment}/>)}
+            {this.state.comments && this.state.comments.map((comment,i) => <CommentListItem key={i} comment={comment}/>)}
         </ListGroup>
     )
     }

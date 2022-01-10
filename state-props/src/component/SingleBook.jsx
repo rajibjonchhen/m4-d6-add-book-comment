@@ -30,15 +30,10 @@ class SingleBook extends Component{
                         <span>Category : {this.props.book.category.toUpperCase()}</span>
                     
                     </Card.Text>
-                    {/* <Button variant="primary" onClick={(e)=>  this.setState({asin:this.props.book.asin})}>Comment </Button> */}
                     <Button variant="primary" onClick={(e)=>  this.props.changeBookAsin(this.props.book.asin)}>Comment </Button>
                 </Card.Body>
             </Card>
                        <div style={{display:this.state.selected? "block":"none"}}>
-
-               
-                       {/* {this.state.asin && (<div><CommentList asin = {this.state.asin} />
-                       <AddComment asin = {this.state.asin}/> </div>)} */}
                        </div>
                      
                        </Col>

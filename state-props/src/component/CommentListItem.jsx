@@ -7,7 +7,8 @@ class CommentList extends Component{
         
              return(
             <ListGroup.Item as="li" active>
-                        {this.props.comment.rate} - {this.props.comment.comment} <BsTrash onClick={this.handleDelete}/>
+                        {this.props.comment.rate} - {this.props.comment.comment} {this.props.comment.elementId} {this.props.comment.commentId}<BsTrash className='text-danger' onClick={(e) => this.handleDelete(this.props.comment._id)}/>
+            <hr/>
             </ListGroup.Item>
                     
                         )
@@ -15,15 +16,19 @@ class CommentList extends Component{
             
               }
         
-        handleDelete = async() =>{
-        
+        handleDelete = async(id) =>{
+            
             try {
-                let response = await fetch("https://striveschool-api.herokuapp.com/api/comments/" + this.comment.elementId, {
-                    Method:"DELETE",
+                let response = await fetch("https://striveschool-api.herokuapp.com/api/comments/" + id, {
+                    method:"DELETE",
                     header:{
-                    "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWIwYWU1OTRjZmY1ZjAwMTU5MGJkYWYiLCJpYXQiOjE2Mzk2NjI1MjgsImV4cCI6MTY0MDg3MjEyOH0.M_W7mM03N1yeADR5Q0nbGPMaXiMh73U1VxH4uhVI160"
+                    "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWIwYWU1OTRjZmY1ZjAwMTU5MGJkYWYiLCJpYXQiOjE2NDE4Mjc1NzYsImV4cCI6MTY0MzAzNzE3Nn0.jwiNMWRpg2y2Ole2--KiD0VnvoMTRx8BcxRRPXSl84A"
                     }
                 })
+                let data = await response.json()
+                if(response.ok){
+                    alert("deleted",data)
+                }
             } catch (error) {
                 
             }

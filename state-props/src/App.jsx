@@ -13,16 +13,19 @@ import AddComment from './component/AddComent';
 
 class App extends Component {
   state = {
-    asin:''
+    asin:'',
+    showComment:false
   }
 
   
-  changeBookAsin = (newAsin) =>{
-    this.setState({asin:newAsin})
-    console.log(newAsin)
+  changeBookAsin = (newAsin,condition) =>{
+    
+      this.setState({asin:newAsin})
+      this.setState({showComment:true})
+    
   }
   render(){
-    console.log(this.state.asin)
+    
     return (
       
       <div className="App">
@@ -30,12 +33,12 @@ class App extends Component {
       {/* <MyBadges Mytext="Buy The Latest Book"  color="danger" /> */}
      <Container fluid>
        <Row>
-         <Col xs={12} sm={8} md={8} lg={10}>
+         <Col xs={12} sm={8} md={8} lg={this.state.showComment?9:12}>
             <BookList books={scifiBooks} changeBookAsin = {this.changeBookAsin} />
             {/* <SingleBook className="singlBook" changeBookAsin = {this.changeBookAsin} book={scifiBooks[0]}/> */}
          </Col>
 
-         <Col className="pt-5 text-center bg-dark" xs={12} sm={4} md={4} lg={2}>
+         <Col className="pt-5 text-center bg-dark" xs={12} sm={4} md={4} lg={3} style={{display:this.state.showComment? 'block':'none',position:'fixed', right:'0', height:'100vh'}}>
             <AddComment asin = {this.state.asin}/>
             <CommentList asin={this.state.asin}/>
          </Col>
