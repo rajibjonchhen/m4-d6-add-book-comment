@@ -7,40 +7,35 @@ class CommentList extends Component{
        comments:[],
         isLoading:true,
     }
-    componentDidMount =() =>{
-        this.fetchComments() 
-     }
+  
 
-    //  componentDidUpdate = (prevProps,prevState) => {
-    //      if(prevProps.asin !== this.props.asin){
-    //          this.fetchComments()
-    //      }
-    //  }
-     fetchComments = async() => {
-         try {
-             let response = await fetch("https://striveschool-api.herokuapp.com/api/comments/" + this.props.asin, {
-             method:"GET",   
-             headers: { 
-                 "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWIwYWU1OTRjZmY1ZjAwMTU5MGJkYWYiLCJpYXQiOjE2NDE4Mjc1NzYsImV4cCI6MTY0MzAzNzE3Nn0.jwiNMWRpg2y2Ole2--KiD0VnvoMTRx8BcxRRPXSl84A"
-             }
-                 })
-
-            let data = await response.json()
-            if(data){
-
-                this.setState({comments:data})  
-                this.setState({isLoading:false})  
+     componentDidUpdate = async(prevProps,prevState) => {
+         if(prevProps.asin !== this.props.asin){
+             this.fetchComments()
+             try {
+                 let response = await fetch("https://striveschool-api.herokuapp.com/api/comments/" + this.props.asin, {
+                     method:"GET",   
+                     headers: { 
+                         "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWIwYWU1OTRjZmY1ZjAwMTU5MGJkYWYiLCJpYXQiOjE2NDE4Mjc1NzYsImV4cCI6MTY0MzAzNzE3Nn0.jwiNMWRpg2y2Ole2--KiD0VnvoMTRx8BcxRRPXSl84A"
+                        }
+                    })
+                    
+                    let data = await response.json()
+                    if(data){
+                        
+                        this.setState({comments:data})  
+                        this.setState({isLoading:false})  
+                    }
+                    
+                } catch (error) {
+                    console.log(error)
+                }
             }
-            
-         } catch (error) {
-             console.log(error)
-         }
-     }
+        }
 
     render(){
     return(
-        <ListGroup as="ul">
-            
+        <ListGroup as="ul">   
             {this.state.comments && this.state.comments.map(comment => <CommentListItem comment={comment}/>)}
         </ListGroup>
     )

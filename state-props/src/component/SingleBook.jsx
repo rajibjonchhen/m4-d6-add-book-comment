@@ -12,7 +12,9 @@ class SingleBook extends Component{
     }
 
  
-    
+    changeAsinState =()=>{
+        this.props.changeBookAsin(this.props.book.asin) 
+    }
 
     render(){
         return(
@@ -29,7 +31,8 @@ class SingleBook extends Component{
                         <span>Category : {this.props.book.category.toUpperCase()}</span>
                     
                     </Card.Text>
-                    <Button variant="primary" onClick={(e)=> this.props.changeBookAsin(this.props.book.asin)}>Comment </Button>
+                    <Button variant="primary" onClick={(e)=>  this.setState({asin:this.props.book.asin})}>Comment </Button>
+                    {/* <Button variant="primary" onClick={(e)=>  this.changeAsinState()}>Comment </Button> */}
                 </Card.Body>
             </Card>
                        <div style={{display:this.state.selected? "block":"none"}}>

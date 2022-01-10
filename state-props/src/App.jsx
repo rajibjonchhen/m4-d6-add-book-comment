@@ -16,9 +16,10 @@ class App extends Component {
     asin:''
   }
 
-
+  
   changeBookAsin = (newAsin) =>{
     this.setState({asin:newAsin})
+    console.log(newAsin)
   }
   render(){
 
@@ -30,8 +31,8 @@ class App extends Component {
      <Container>
        <Row>
          <Col xs={12} sm={8} md={8} lg={10}>
-            <BookList books={scifiBooks}/>
-            {/* <SingleBook className="singlBook" changeBookAsin = {this.ChangeBookAsin} book={scifiBooks[0]}/> */}
+            <BookList books={scifiBooks} changeBookAsin = {this.changeBookAsin} />
+            {/* <SingleBook className="singlBook" changeBookAsin = {this.changeBookAsin} book={scifiBooks[0]}/> */}
          </Col>
 
          <Col xs={12} sm={4} md={4} lg={2}>
